@@ -7,9 +7,9 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
 
-- id: 'Push to Cloud Run'
-  name: 'gcr.io/cloud-builders/gcloud'
-  args: ["run", "deploy", "peacepinot", "--image gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
+#- id: 'Push to Cloud Run'
+#  name: 'gcr.io/cloud-builders/gcloud'
+#  args: ["run", "deploy", "peacepinot", "--image gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
 
 
 
