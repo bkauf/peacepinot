@@ -7,6 +7,26 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
 
+- id: 'Push to Cloud Run'
+  name: 'gcr.io/cloud-builders/gcloud'
+  args: ["run", "deploy", "peacepinot", "--image gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
+
+
+
+# This step deploys the new version of our container image
+# in the hello-cloudbuild Kubernetes Engine cluster.
+- id: 'Deploy to K8s'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - 'set'
+  - 'image'
+  - 'deployment/frontend'
+  - 'webserver=gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=peacepinot-com'
+
+
 #- id: 'Deploy and get Manifest'
 #  name: 'gcr.io/cloud-builders/kubectl'
 #  entrypoint: 'bash'
@@ -15,4 +35,3 @@ steps:
 #  - |
 #    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
 #    kubectl set image deployment/frontend-staging webserver=gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME
-# Prepare for github to store k8s config
