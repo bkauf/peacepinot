@@ -20,18 +20,18 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: bkauf/gcpdemo:5.0
+        image: bkauf/peacepinot:1.0
         imagePullPolicy: Always
         ports:
         - name: frontend
           containerPort: 80
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 80
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 80
           initialDelaySeconds: 20
           periodSeconds: 5
