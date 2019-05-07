@@ -1,11 +1,11 @@
 steps:
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/gcpdemo:$SHORT_SHA', '.']
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME', '.']
 
 - id: 'Push Container to Staging registry'
   name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/$_IMAGE_REPO/gcpdemo:$SHORT_SHA"]
+  args: ["push", "gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME"]
 
 - id: 'Deploy and get Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -15,5 +15,5 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl set image deployment/frontend-staging webserver=gcr.io/$_IMAGE_REPO/gcpdemo:$SHORT_SHA
+    kubectl set image deployment/frontend-staging webserver=gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME
 # Prepare for github to store k8s config
