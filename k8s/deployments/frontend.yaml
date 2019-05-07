@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: frontend-production
+  name: frontend
 spec:
   replicas: 1
   strategy:
@@ -11,7 +11,7 @@ spec:
       maxUnavailable: 25%
   selector:
     matchLabels:
-      app: frontend-production
+      app: frontend
   template:
     metadata:
       name: frontend
