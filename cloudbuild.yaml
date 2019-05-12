@@ -1,4 +1,10 @@
 steps:
+    # Add service account json
+- id: 'Add Service Account JSON'
+  name: gcr.io/cloud-builders/gsutil
+  args: ['cp', 'gs://bkauf-wineemoji/bkauf-sandbox.json', '/workspace/']
+#^not good!
+
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$_IMAGE_REPO/peacepinot:$TAG_NAME', '.']

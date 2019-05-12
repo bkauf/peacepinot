@@ -1,0 +1,21 @@
+doctype html
+html
+  head
+    link(href='/stylesheets/style.css', rel='stylesheet')
+    script(src='/javascripts/jquery-3.2.1.min.js')
+    script(src='/javascripts/script.js')
+    title From: Test #{container}
+  body
+    #wrapper
+      #header
+        #header-right
+          img(src="/images/front.jpg")
+        #header-left
+          h1=title
+        #body
+
+          div
+          h2 Are you drinking Peace Pinot?
+          form(method='post', enctype='multipart/form-data', action='/automl')
+            input(type='file', name='imageupload')
+            input(type='submit', name='uploadimage', value='Upload Image')

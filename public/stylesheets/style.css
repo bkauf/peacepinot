@@ -1,0 +1,80 @@
+body {
+  /*padding: 50px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("../images/background2.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-color:white;
+  background-position: center; 
+}
+
+a {
+  color: #00B7FF;
+}
+h2 {
+border:2px dotted #FFF;
+padding: 10px;
+color: #FFF;
+background-color: #000;
+
+}
+h1{
+  color: #FFF;
+  background-color: #000;
+}
+
+
+#wrapper{
+  margin-left: auto;
+  margin-right: auto;
+  width: 675px;
+}
+#header{width:100%}
+#header-left{
+  width: 350px;
+  margin: 0px;
+  padding: 0px;
+}
+#header-right{
+  float:right;
+  width: 300px;
+  text-align: right;
+}
+
+#main{width: 100%;}
+#main-images{
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+#menu{
+  /*width:33%;*/
+  margin-left: 0;
+}
+
+
+#action{
+  width:100px;
+  float:right;
+}
+#body{
+  width: 100%;
+  min-width: 100%;
+  margin-top: 15px;
+}
+
+
+input#send-button,#chat-button,#query-button,.button, .inputBox {
+    color:#08233e;
+    margin: 10px;
+    border: 1px solid blue;
+    font-size:20px;
+    margin-left: 0px;
+
+}
+#querytime{
+  width: 40px;
+}
+.blue{
+  color: blue;
+}
