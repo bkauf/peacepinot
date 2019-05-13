@@ -77,6 +77,7 @@ app.post('/automl',function(req,res){
   if (response.payload[0].displayName != 'wine_emoji'){
     var message = "NO, Not Peace Pinot :("
   }
+    console.log(response.payload[0].classification.score);
     res.render('results', { title: message, imagesrc:'images/filename.jpg'});
 
 
