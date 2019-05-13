@@ -12,7 +12,7 @@ const client = new automl.PredictionServiceClient({
 
 const project = 'bkauf-sandbox';
 const region = 'us-central1';
-const automlModel = 'ICN8931733455690231723';
+const automlModel = 'ICN973436885879248128';
  //filePath = 'GCS_PATH',
 process.env.GOOGLE_APPLICATION_CREDENTIALS ='/usr/src/app/bkauf-sandbox.json';
 
