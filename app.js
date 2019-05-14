@@ -67,7 +67,6 @@ app.post('/automl',function(req,res){
          newWidth     = 0;
          newHeight    = 0;
          var aspectRatio  = Number(dimensions.width)/Number(dimensions.height);
-      console.log("Aspect Ratio:"+aspectRatio );
          if (Number(dimensions.width)>500 || Number(dimensions.height>500) ){
                  resize = "yes";
                  console.log("Resize Image"+dimensions.width+" "+dimensions.height);
