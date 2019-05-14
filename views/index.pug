@@ -2,20 +2,18 @@ doctype html
 html
   head
     link(href='/stylesheets/style.css', rel='stylesheet')
-    script(src='/javascripts/jquery-3.2.1.min.js')
-    script(src='/javascripts/script.js')
-    title From: Test #{container}
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    title Peace Pinot Tester
   body
     #wrapper
       #header
-        #header-right
-          img(src="/images/front.jpg")
-        #header-left
-          h1=title
-        #body
+        h2 Are you drinking Peace Pinot?
+      #body
+        #body-right
+          img(src='images/front.jpg', width='500px')
 
-          div
-          h2 Are you drinking Peace Pinot?
-          form(method='post', enctype='multipart/form-data', action='/automl')
-            input(type='file', name='imageupload')
-            input(type='submit', name='uploadimage', value='Upload Image')
+        #body-left
+        div
+        form(method='post', enctype='multipart/form-data', action='/automl')
+          input(type='file', name='imageupload')
+          input(type='submit', name='uploadimage', value='Upload Image')

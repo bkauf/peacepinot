@@ -5,8 +5,11 @@ body {
   background-repeat: no-repeat;
   background-size: auto;
   background-color:white;
-  background-position: center; 
+  background-position: center;
+  background-size: cover;
+  background-color: #000;
 }
+
 
 a {
   color: #00B7FF;
@@ -21,47 +24,52 @@ background-color: #000;
 h1{
   color: #FFF;
   background-color: #000;
+  padding: 10px;
 }
 
 
 #wrapper{
   margin-left: auto;
   margin-right: auto;
-  width: 675px;
+  width: 850px;
 }
 #header{width:100%}
-#header-left{
-  width: 350px;
-  margin: 0px;
-  padding: 0px;
-}
-#header-right{
-  float:right;
-  width: 300px;
-  text-align: right;
-}
-
-#main{width: 100%;}
-#main-images{
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-}
-#menu{
-  /*width:33%;*/
-  margin-left: 0;
-}
-
-
-#action{
-  width:100px;
-  float:right;
-}
 #body{
   width: 100%;
   min-width: 100%;
   margin-top: 15px;
 }
+#body-left{
+  width: 350px;
+  margin: 0px;
+  padding: 0px;
+}
+#body-right{
+  float:right;
+  width: 500px;
+}
+#container{
+
+  display:inline-block;
+  margin: 0 auto;
+  position:relative;
+  border:5px solid black;
+  border-radius: 10px;
+  box-shadow: 0 5px 50px #333;
+  width:500px;
+  height:480px;
+}
+#myCanvas{
+  position:relative;
+  z-index:20;
+ }
+.img{position:absolute;z-index:1;}
+
+
+
+
+
+
 
 
 input#send-button,#chat-button,#query-button,.button, .inputBox {
@@ -71,10 +79,4 @@ input#send-button,#chat-button,#query-button,.button, .inputBox {
     font-size:20px;
     margin-left: 0px;
 
-}
-#querytime{
-  width: 40px;
-}
-.blue{
-  color: blue;
 }
