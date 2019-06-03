@@ -3,25 +3,33 @@ var fs           = require("fs");
 const fileUpload = require('express-fileupload');
 var express      = require('express');
 var sizeOf       = require('image-size');
+const automl     = require('@google-cloud/automl');
+const {Storage}  = require('@google-cloud/storage');
+const sharp      = require('sharp');
 var app          = express();
+
+
+// account specific variables
 const port       = 8080;
-const automl = require('@google-cloud/automl');
-const sharp  = require('sharp');
+var gcsBucket = "bkauf-peacepinot";
+var gcsFolder = "uploads";//not finished
+var project   = "bkauf-sandbox";
+var saToken   = "/usr/src/app/bkauf-sandbox.json";
+const region = 'us-central1';
+const automlModel = 'IOD822197203064848384';//object
+// end account specifc variables
+
 
 const client = new automl.PredictionServiceClient({
-  projectId: 'bkauf-sandbox',
-  keyFilename: '/usr/src/app/bkauf-sandbox.json',
+  projectId: project,
+  keyFilename: saToken,
 });
 
-const project = 'bkauf-sandbox';
-const region = 'us-central1';
-//const automlModel = 'ICN973436885879248128';//classification
-const automlModel = 'IOD822197203064848384';//object
+const storage = new Storage({
+  projectId: project,
+  keyFilename: saToken
+});
 
- //filePath = 'GCS_PATH',
-process.env.GOOGLE_APPLICATION_CREDENTIALS ='/usr/src/app/bkauf-sandbox.json';
-
- // Instantiates a client
 var path         = require('path');
 var favicon      = require('serve-favicon');
 var bodyParser   = require('body-parser');
@@ -34,17 +42,10 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', index);
-
-/* app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-*/
-
 app.use(fileUpload());
+
+
 app.post('/automl',function(req,res){
     var timeStamp = Date.now();
     var uploadPath = './public/images/uploads/raw/'+timeStamp+'.jpg';
@@ -64,8 +65,8 @@ app.post('/automl',function(req,res){
          let outputReFile = resizePath;
          var resize       = "false";
          var dimensions   = sizeOf(inputFile);
-         newWidth     = 0;
-         newHeight    = 0;
+         var newWidth     = 0;
+         var newHeight    = 0;
          var aspectRatio  = Number(dimensions.width)/Number(dimensions.height);
          if (Number(dimensions.width)>500 || Number(dimensions.height>500) ){
                  resize = "yes";
@@ -77,33 +78,34 @@ app.post('/automl',function(req,res){
              }else{
                newHeight = Math.round((499/aspectRatio));
                newWidth  = 499;
-               console.log("Test2 dimentions"+newWidth+newHeight);
+
              }
-        }else{
-             var newWidth  = dimensions.width;
-             var newHeight = dimensions.height;
-        }
+         }else{
+              newWidth  = dimensions.width;
+              newHeight = dimensions.height;
+         }
             console.log("Test dimentions"+newWidth+newHeight);
-            imageResize(inputFile,outputReFile,newWidth,newHeight,resize, function(outputFile) {
+            imageResize(inputFile,outputReFile,newWidth,newHeight,resize, function(outputFile) {//resize images
+
                   console.log('enter predict');
                         console.log(outputFile);
                         var bitmap = fs.readFileSync(outputFile);
-                      //const content  = fs.readFileSync(filePath, 'base64');
-                      const content   = new Buffer(bitmap).toString('base64');
-                      // Set the payload by giving the content and type of the file.
+                        var content   = new Buffer(bitmap).toString('base64');
                         const payload = {};
                         payload.image = {imageBytes: content};
-
                         const formattedName = client.modelPath(project, region, automlModel);
                         const request = {
                           name: formattedName,
                           payload: payload,
                         };
+                    gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
+                        console.log('Image Uploaded:'+fileURL);
+
+                      // fs.unlinkSync(outputFile);//delete original file from server
+                      //  console.log("original file deleted from server");
                         client.predict(request)
                         .then(responses => {
                           const response = responses[0];
-                      //  console.log(response.payload[0].displayName);
-                      //  res.send(JSON.stringify(response));
 
                       var message = "NO, Not Peace Pinot :(";
                       var xycords     = [{x:0,y:0},{x:0,y: 0}];
@@ -112,43 +114,28 @@ app.post('/automl',function(req,res){
                       if (typeof response.payload[0] !== 'undefined') {
                         var xycords      = response.payload[0].imageObjectDetection.boundingBox['normalizedVertices'];
                         var automlScore  = response.payload[0].imageObjectDetection.score;
-                        var message      = "YES YES Peace Pinot!";
+                            message      = "YES YES Peace Pinot!";
                         console.log("Peace Pinot!");
-                      //console.log("Cords:"+JSON.stringify(xycords));
                         console.log("Score:"+automlScore);
-                        //console.log("Height:"+dimensions.height);
-                        //console.log("Width:"+dimensions.width);
-
                       }
-
-                        fileNameArry = outputFile.split("/");
-                        filePath = fileNameArry[4];
-                        fileName = fileNameArry[5];
-
-                        var dimensions = sizeOf(outputFile);
-
-                        res.render('results', { imgWidth:newWidth,imgHeight:newHeight, title: message, imagesrc:'images/uploads/'+filePath+"/"+fileName,xycords:JSON.stringify(xycords), score: automlScore,imageWidth: newWidth, imageHeight: newHeight});
-                            delete newWidth;
-                            delete newHeight;
-
-
+                        res.render('results', { imgWidth:newWidth,
+                          imgHeight:newHeight,
+                          title: message,
+                          //imagesrc:'images/uploads/'+filePath+"/"+fileName,
+                          imagesrc: fileURL,
+                          xycords:JSON.stringify(xycords),
+                          score: automlScore,imageWidth: newWidth,
+                          imageHeight: newHeight});
                         })
                           .catch(err => {
                             console.error(err);
                           });
-
-
-            });//end of resize callbacl
-
+                  });//end gcs upload callback
+            });//end of resize callback
       });//end file upload callback
-
       console.log('automl completed');
 
     });
-
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -174,7 +161,6 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
     if (resize == "yes"){
-
         console.log("starting dimensions:"+JSON.stringify(sizeOf(inputFile)));
         console.log("To: "+newWidth+" "+newHeight);
          sharp(inputFile).resize({ width: newWidth,height: newHeight}).toFile(outputFile)
@@ -183,17 +169,24 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
                    console.log("Image Resized:"+JSON.stringify(newFileInfo));
                    //fs.unlink('./public/images/uploads/filenameRaw.jpg');
                    callback(outputFile);
-
                 })
                 .catch(function(err) {
                        console.log("Error occured Resizing Image Width"+err);
                 });
-
-
   }else{
-  //  return  inputFile;
+  //  return  inputFile as file did not need to be modified;
       callback(inputFile);
   }
-  //  return   outputFile;
+}
 
+function gcsMove(BUCKET_NAME,FOLDER,FILEURL, callback){
+  console.log('move image to cloud storage');
+  var options = options || {};
+  const  bucket = storage.bucket(BUCKET_NAME);
+  const fileName = path.basename(FILEURL);
+  const file = bucket.file(fileName);
+   bucket.upload(FILEURL, options)
+      .then(() => file.makePublic())
+      .then(() => fs.unlink(FILEURL));
+   callback('https://storage.googleapis.com/'+BUCKET_NAME+'/'+fileName);
 }
