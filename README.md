@@ -3,7 +3,7 @@
 
 ## Google Cloud AutoML on Node.js Demo
 
-###Add you own settings in the following section of the app.js files
+### Add you own settings in the following section of the app.js files
 ```javascript
 
 const port       = 8080;
