@@ -1,4 +1,4 @@
-# peacepinot
+# PeacePinot Demo
 
 
 ## Google Cloud AutoML on Node.js Demo
@@ -7,7 +7,7 @@
 ```javascript
 
 const port       = 8080;
-var gcsBucket = "bkauf-peacepinot";
+var gcsBucket = "bkauf-peacepinot";//name of GCS Bucket
 var gcsFolder = "uploads";//not finished
 var project   = "bkauf-sandbox";//GCP Project
 var saToken   = "/usr/src/app/bkauf-sandbox.json";//location of service account JSON
