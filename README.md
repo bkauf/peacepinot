@@ -1,7 +1,7 @@
 # PeacePinot Demo
 
 
-## Google Cloud AutoML on Node.js Demo
+## Google Cloud AutoML Object Detection Demo on Node.js 
 
 ### Add your own settings in the following section of the app.js files
 ```javascript
