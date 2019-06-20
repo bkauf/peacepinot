@@ -18,7 +18,6 @@ steps:
 #  args: ["run", "deploy", "peacepinot", "--image gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID"]
 
 
-
 # This step deploys the new version of our container image
 # in the hello-cloudbuild Kubernetes Engine cluster.
 - id: 'Deploy to K8s'
