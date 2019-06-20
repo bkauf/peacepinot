@@ -8,7 +8,6 @@ const {Storage}  = require('@google-cloud/storage');
 const sharp      = require('sharp');
 var app          = express();
 
-
 // account specific variables
 const port       = 8080;
 var gcsBucket = "bkauf-peacepinot";
