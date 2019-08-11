@@ -33,5 +33,10 @@
     "url": "git+https://github.com/bkauf/peacepinot.git"
   },
   "license": "ISC",
-  "homepage": "https://github.com/bkauf/peacepinot#readme"
+  "homepage": "https://github.com/bkauf/peacepinot#readme",
+  "jest": {
+  "moduleFileExtensions": [
+    "json"
+  ]
+}
 }
