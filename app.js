@@ -33,7 +33,7 @@ var path         = require('path');
 var favicon      = require('serve-favicon');
 var bodyParser   = require('body-parser');
 var index        = require('./routes/index');
-var loaderPage   = require('./routes/loaderio.js');
+var loaderPage   = require('./routes/loaderio');
 
 
 
