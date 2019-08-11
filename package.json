@@ -15,7 +15,7 @@
     "fs": "0.0.1-security",
     "image-size": "^0.7.4",
     "morgan": "^1.9.1",
-    "npm": "^6.9.0",
+    "npm": "^6.10.3",
     "pug": "^2.0.3",
     "request": "^2.88.0",
     "serve-favicon": "^2.5.0",
@@ -35,8 +35,8 @@
   "license": "ISC",
   "homepage": "https://github.com/bkauf/peacepinot#readme",
   "jest": {
-  "moduleFileExtensions": [
-    "json"
-  ]
-}
+    "moduleFileExtensions": [
+      "json"
+    ]
+  }
 }
