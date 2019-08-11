@@ -14,7 +14,6 @@ var gcsBucket = "bkauf-peacepinot";
 var gcsFolder = "uploads";//not finished
 var project   = "bkauf-sandbox";
 var saToken   = "/usr/src/app/bkauf-sandbox.json";
-var loaderPage     = require('./routes/loaderio-7fb93f7a58f56efbca84be04d559c29d');
 const region = 'us-central1';
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
@@ -34,6 +33,8 @@ var path         = require('path');
 var favicon      = require('serve-favicon');
 var bodyParser   = require('body-parser');
 var index        = require('./routes/index');
+var loaderPage   = require('./routes/loaderio.js');
+
 
 
 app.set('views', __dirname + '/views');
