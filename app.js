@@ -14,6 +14,7 @@ var gcsBucket = "bkauf-peacepinot";
 var gcsFolder = "uploads";//not finished
 var project   = "bkauf-sandbox";
 var saToken   = "/usr/src/app/bkauf-sandbox.json";
+var loaderPage     = require('./routes/loaderio-7fb93f7a58f56efbca84be04d559c29d');
 const region = 'us-central1';
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
@@ -43,6 +44,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use(fileUpload());
+app.use('/loaderio-7fb93f7a58f56efbca84be04d559c29d', loaderPage);
 
 
 app.post('/automl',function(req,res){
