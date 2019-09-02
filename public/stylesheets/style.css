@@ -68,11 +68,7 @@ h1{
 
 
 
-
-
-
-
-input#send-button,#chat-button,#query-button,.button, .inputBox {
+input.fileinputs {
     color:#08233e;
     margin: 10px;
     border: 1px solid blue;
