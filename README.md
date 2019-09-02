@@ -8,8 +8,8 @@
 ```javascript
 
 const port       = 8080;
-var gcsBucket = "bkauf-peacepinot";//name of GCS Bucket
-var gcsFolder = "uploads";//make sure access it public
+var gcsBucket = "bkauf-peacepinot";//name of GCS Bucket make sure access it public
+var gcsFolder = "uploads";//not implemented yet
 var project   = "bkauf-sandbox";//GCP Project
 var saToken   = "/usr/src/app/token.json";//location of service account JSON
 const region = 'us-central1';//regin of autoML model
