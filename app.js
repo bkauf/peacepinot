@@ -135,9 +135,7 @@ app.post('/automl',function(req,res){
             });//end of resize callback
       });//end file upload callback
       console.log('automl completed');
-      fs.unlinkSync(outputFile);//delete original file from server
-      console.log("original file deleted from server");
-
+      
     });
 
 // catch 404 and forward to error handler
