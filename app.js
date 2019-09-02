@@ -103,7 +103,7 @@ app.post('/automl',function(req,res){
                        gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
                        console.log('Image Uploaded:'+fileURL);
 
-
+                        //automl Prediction
                         client.predict(request)
                         .then(responses => {
                           const response = responses[0];
@@ -135,7 +135,7 @@ app.post('/automl',function(req,res){
             });//end of resize callback
       });//end file upload callback
       console.log('automl completed');
-      
+
     });
 
 // catch 404 and forward to error handler
