@@ -10,11 +10,11 @@ var app          = express();
 
 // account specific variables
 const port       = 8080;
-var gcsBucket = "bkauf-peacepinot";
-var gcsFolder = "uploads";//not finished
-var project   = "bkauf-sandbox";
-var saToken   = "/usr/src/app/token.json";
-const region = 'us-central1';
+var gcsBucket = 'bkauf-peacepinot';//name of GCS Bucket make sure access is public
+var gcsFolder = 'uploads';//not finished
+var project   = 'bkauf-sandbox';//GCP Project
+var saToken   = '/usr/src/app/token.json';
+const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
 
