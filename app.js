@@ -13,7 +13,7 @@ const port       = 8080;
 var gcsBucket = "bkauf-peacepinot";
 var gcsFolder = "uploads";//not finished
 var project   = "bkauf-sandbox";
-var saToken   = "/usr/src/app/bkauf-sandbox.json";
+var saToken   = "/usr/src/app/token.json";
 const region = 'us-central1';
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
