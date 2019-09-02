@@ -16,8 +16,11 @@ const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//autoML model ID
 
 ```
-#Once you have the credential spec in the root directory you can create a docker image for the application
+# Once you have the credential spec in the root directory you can create a docker image for the application
 
-'docker build -t peacepinot:1.0 .'
+```console
+ docker build -t peacepinot:1.0 .
+```
+
 
 ![Image description](readme.png)
