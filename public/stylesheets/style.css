@@ -66,12 +66,11 @@ h1{
 .img{position:absolute;z-index:1;}
 
 
-
-
 input.fileinputs {
     color:#08233e;
     margin: 10px;
-    border: 1px solid blue;
+    padding: 10px
+    border: 1px solid #000;
     font-size:20px;
     margin-left: 0px;
 
