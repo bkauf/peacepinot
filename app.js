@@ -103,8 +103,7 @@ app.post('/automl',function(req,res){
                        gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
                        console.log('Image Uploaded:'+fileURL);
 
-                       fs.unlinkSync(outputFile);//delete original file from server
-                       console.log("original file deleted from server");
+
                         client.predict(request)
                         .then(responses => {
                           const response = responses[0];
@@ -136,6 +135,8 @@ app.post('/automl',function(req,res){
             });//end of resize callback
       });//end file upload callback
       console.log('automl completed');
+      fs.unlinkSync(outputFile);//delete original file from server
+      console.log("original file deleted from server");
 
     });
 
