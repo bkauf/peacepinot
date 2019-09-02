@@ -12,7 +12,7 @@ var app          = express();
 const port       = 8080;
 var gcsBucket = 'bkauf-peacepinot';//name of GCS Bucket make sure access is public
 var gcsFolder = 'uploads';//not finished
-var project   = 'bkauf-sandbox';//GCP Project
+var project   = 'bkauf-sandbox';//GCP Project Where Model is
 var saToken   = '/usr/src/app/token.json';
 const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
@@ -89,7 +89,7 @@ app.post('/automl',function(req,res){
             console.log("Test dimentions"+newWidth+newHeight);
             imageResize(inputFile,outputReFile,newWidth,newHeight,resize, function(outputFile) {//resize images
 
-                  console.log('enter predict');
+                        console.log('!Enter Predict!');
                         console.log(outputFile);
                         var bitmap = fs.readFileSync(outputFile);
                         var content   = new Buffer(bitmap).toString('base64');
@@ -100,8 +100,8 @@ app.post('/automl',function(req,res){
                           name: formattedName,
                           payload: payload,
                         };
-                    gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
-                        console.log('Image Uploaded:'+fileURL);
+                       gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
+                       console.log('Image Uploaded:'+fileURL);
 
                        fs.unlinkSync(outputFile);//delete original file from server
                        console.log("original file deleted from server");
@@ -116,7 +116,7 @@ app.post('/automl',function(req,res){
                       if (typeof response.payload[0] !== 'undefined') {
                         var xycords      = response.payload[0].imageObjectDetection.boundingBox['normalizedVertices'];
                         var automlScore  = response.payload[0].imageObjectDetection.score;
-                            message      = "YES YES Peace Pinot!";
+                        message      = "YES YES Peace Pinot!";
                         console.log("Peace Pinot!");
                         console.log("Score:"+automlScore);
                       }
