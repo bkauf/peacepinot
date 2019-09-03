@@ -3,6 +3,7 @@ html
   head
     link(href='/stylesheets/style.css', rel='stylesheet')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    script(src='/javascripts/script.js')
     title Peace Pinot Tester
     meta(name="viewport", content="width=device-width", initial-scale=1.0)
 
@@ -15,7 +16,7 @@ html
         #body-menu
           form(method='post', enctype='multipart/form-data', action='/automl')
             input.fileinputs(type='file', name='imageupload')
-            input.fileinputs(type='submit', name='uploadimage', value='Upload Image')
+            input#uploadimage.fileinputs(type='submit', name='uploadimage', value='Upload Image')
 
           #body-content
             #container
