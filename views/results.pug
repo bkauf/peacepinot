@@ -10,35 +10,33 @@ html
         h2 Are you drinking Peace Pinot?
         h1=title
       #body
-        #body-right
-          #container
-            img(src=imagesrc,  class='img')
-            canvas(id="myCanvas" width=imgWidth height=imgHeight style="border:1px solid #000000;")
-        #body-left
+        #body-menu
+          div
+          h2 Try Again?
+          form(method='post', enctype='multipart/form-data', action='/automl')
+            input(type='file', name='imageupload')
+            input(type='submit', name='uploadimage', value='Upload Image')
+          script(type="text/javascript").
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            // Green rectangle
+            var xycords = !{xycords}
+            $("#container").width(!{imageWidth});
+            $("#container").height(!{imageHeight});
 
-        div
-        h2 Try Again?
-        form(method='post', enctype='multipart/form-data', action='/automl')
-          input(type='file', name='imageupload')
-          br
-          br
-          input(type='submit', name='uploadimage', value='Upload Image')
-        script(type="text/javascript").
-          var c = document.getElementById("myCanvas");
-          var ctx = c.getContext("2d");
-          // Green rectangle
-          var xycords = !{xycords}
-          $("#container").width(!{imageWidth});
-          $("#container").height(!{imageHeight});
+            var x1= xycords[0].x*!{imageWidth};
+            var y1= xycords[0].y*!{imageHeight} ;
+            var x2= (xycords[1].x*!{imageWidth})-(xycords[0].x*!{imageWidth});
+            var y2= (xycords[1].y*!{imageHeight})-(xycords[0].y*!{imageHeight});
 
-          var x1= xycords[0].x*!{imageWidth};
-          var y1= xycords[0].y*!{imageHeight} ;
-          var x2= (xycords[1].x*!{imageWidth})-(xycords[0].x*!{imageWidth});
-          var y2= (xycords[1].y*!{imageHeight})-(xycords[0].y*!{imageHeight});
+            //ctx.beginPath();
+            ctx.lineWidth = "4";
+            ctx.strokeStyle = "green";
+            ctx.rect(x1, y1, x2, y2);
+            //ctx.rect(71, 133, 201, 593);
+            ctx.stroke();
 
-          //ctx.beginPath();
-          ctx.lineWidth = "4";
-          ctx.strokeStyle = "green";
-          ctx.rect(x1, y1, x2, y2);
-          //ctx.rect(71, 133, 201, 593);
-          ctx.stroke();
+          #body-content
+            #container
+              img(src=imagesrc,  class='img')
+              canvas(id="myCanvas" width=imgWidth height=imgHeight style="border:1px solid #000000;")
