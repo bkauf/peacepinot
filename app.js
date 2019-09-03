@@ -112,10 +112,17 @@ app.post('/automl',function(req,res){
                       var automlScore = 0;
 
                       if (typeof response.payload[0] !== 'undefined') {
-                        var xycords      = response.payload[0].imageObjectDetection.boundingBox['normalizedVertices'];
+                        //var xycords      = response.payload[0].imageObjectDetection.boundingBox['normalizedVertices'];
                         var automlScore  = round(response.payload[0].imageObjectDetection.score, 2);
                         message  = "YES YES Peace Pinot!";
-
+                        // Get all bounding boxes
+                        var xycords =[]
+                        var arrayLength = response.payload.length;
+                        for (var i = 0; i < arrayLength; i++) {
+                          //  console.log(myStringArray[i]);
+                            xycords[i]= response.payload[i].imageObjectDetection.boundingBox['normalizedVertices'];
+                        }
+                        console.log(JSON.stringify(xycords));
                         console.log("Peace Pinot!");
                         console.log("Score:"+automlScore);
 
