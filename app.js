@@ -80,7 +80,6 @@ app.post('/automl',function(req,res){
              }else{
                newHeight = Math.round((499/aspectRatio));
                newWidth  = 499;
-
              }
          }else{
               newWidth  = dimensions.width;
@@ -114,10 +113,12 @@ app.post('/automl',function(req,res){
 
                       if (typeof response.payload[0] !== 'undefined') {
                         var xycords      = response.payload[0].imageObjectDetection.boundingBox['normalizedVertices'];
-                        var automlScore  = response.payload[0].imageObjectDetection.score;
-                        message      = "YES YES Peace Pinot!";
+                        var automlScore  = round(response.payload[0].imageObjectDetection.score, 2);
+                        message  = "YES YES Peace Pinot!";
+
                         console.log("Peace Pinot!");
                         console.log("Score:"+automlScore);
+
                       }
                         res.render('results', { imgWidth:newWidth,
                           imgHeight:newHeight,
@@ -125,7 +126,8 @@ app.post('/automl',function(req,res){
                           //imagesrc:'images/uploads/'+filePath+"/"+fileName,
                           imagesrc: fileURL,
                           xycords:JSON.stringify(xycords),
-                          score: automlScore,imageWidth: newWidth,
+                          score: automlScore,
+                          imageWidth: newWidth,
                           imageHeight: newHeight});
                         })
                           .catch(err => {
@@ -168,7 +170,7 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
                .then(function(newFileInfo){
                    // newFileInfo holds the output file properties
                    console.log("Image Resized:"+JSON.stringify(newFileInfo));
-                   //fs.unlink('./public/images/uploads/filenameRaw.jpg');
+                   fs.unlink(inputFile);
                    callback(outputFile);
                 })
                 .catch(function(err) {
@@ -190,4 +192,7 @@ function gcsMove(BUCKET_NAME,FOLDER,FILEURL, callback){
       .then(() => file.makePublic())
       .then(() => fs.unlink(FILEURL));
    callback('https://storage.googleapis.com/'+BUCKET_NAME+'/'+fileName);
+}
+function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
