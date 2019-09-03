@@ -166,7 +166,10 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
     if (resize == "yes"){
         console.log("starting dimensions:"+JSON.stringify(sizeOf(inputFile)));
         console.log("To: "+newWidth+" "+newHeight);
-         sharp(inputFile).resize({ width: newWidth,height: newHeight}).toFile(outputFile)
+         sharp(inputFile)
+               .resize({ width: newWidth,height: newHeight})
+               .rotate()
+               .toFile(outputFile)
                .then(function(newFileInfo){
                    // newFileInfo holds the output file properties
                    console.log("Image Resized:"+JSON.stringify(newFileInfo));
