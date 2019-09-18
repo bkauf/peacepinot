@@ -1,10 +1,4 @@
 steps:
-    # Add service account json
-- id: 'Add Service Account JSON'
-  name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://$_BUCKET_NAME/token.json', '/workspace/']
-#^not good!
-
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID', '.']
