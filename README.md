@@ -28,4 +28,4 @@ In your cluster create a secret with the JSON file of a service account with the
 kubectl create secret generic peacepinot --from-file service-account.json
 ```
 
-![Image description](readme2.png)
+![Image description](readme.png)
