@@ -13,7 +13,7 @@ const port       = 8080;
 var gcsBucket = 'bkauf-peacepinot';//name of GCS Bucket make sure access is public
 var gcsFolder = 'uploads';//not finished
 var project   = 'bkauf-sandbox';//GCP Project Where Model is
-var saToken   = '/usr/src/app/token.json';
+var saToken   = '/var/run/secret/cloud.google.com/service-account.json';
 const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables

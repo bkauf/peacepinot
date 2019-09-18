@@ -11,7 +11,7 @@ const port       = 8080;
 var gcsBucket = 'bkauf-peacepinot';//GCS Bucket to upload images- make sure access is public
 var gcsFolder = 'uploads';//not implemented yet
 var project   = 'bkauf-sandbox';//GCP Project Where Model is
-var saToken   = '/usr/src/app/token.json';//location of service account JSON
+var saToken   = '/var/run/secret/cloud.google.com/service-account.json';//location of service account JSON. K8s secret config below
 const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//autoML model ID
 
@@ -22,5 +22,10 @@ const automlModel = 'IOD822197203064848384';//autoML model ID
  docker build -t peacepinot:1.0 .
 ```
 
+In your cluster create a secret with the JSON file of a service account with the correct ML rollingUpdate
+
+```console
+kubectl create secret generic peacepinot --from-file service-account.json
+```
 
 ![Image description](readme2.png)
