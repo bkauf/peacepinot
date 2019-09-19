@@ -16,13 +16,13 @@ const region = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//autoML model ID
 
 ```
-# Once you have the credential spec in the root directory you can create a docker image for the application
+# Build your container
 
 ```console
  docker build -t peacepinot:1.0 .
 ```
 
-In your cluster create a secret with the JSON file of a service account with the correct ML rollingUpdate
+If you are running the container in a K8s cluster you can create a secret with the JSON file of a service account with the AutoML Predictor role instead of loading it into the container directly.
 
 ```console
 kubectl create secret generic peacepinot --from-file service-account.json
