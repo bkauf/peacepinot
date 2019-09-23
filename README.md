@@ -7,13 +7,13 @@
 
 ```javascript
 
-const port       = 8080;
-const gcsBucket = 'bkauf-peacepinot';//GCS Bucket to upload images- make sure access is public
-const gcsFolder = 'uploads';//not implemented yet
-const project   = 'bkauf-sandbox';//GCP Project Where Model is
-const saToken   = '/var/run/secret/cloud.google.com/service-account.json';//location of service account JSON. K8s secret config below
-const region = 'us-central1';//region of autoML model
-const automlModel = 'IOD822197203064848384';//autoML model ID
+const port        = 8080;
+const gcsBucket   = 'bkauf-peacepinot'; //GCS Bucket to upload images- make sure access is public
+const gcsFolder   = 'uploads'; //not implemented yet
+const project     = 'bkauf-sandbox'; //GCP Project Where Model is
+const saToken     = '/var/run/secret/cloud.google.com/service-account.json'; //location of service account JSON. K8s secret config below
+const region      = 'us-central1'; //region of autoML model
+const automlModel = 'IOD822197203064848384'; //autoML model ID
 
 ```
 # Build your container
