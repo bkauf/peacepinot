@@ -19,6 +19,7 @@ COPY . /usr/src/app
 
 #Install new dependencies
 RUN npm update
+
 #open ports
 EXPOSE 8080
 CMD [ "nodemon", "start" ]
