@@ -183,9 +183,9 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
                    fs.unlink(inputFile);
                    callback(outputFile);
                 })
-                .catch(function(err) {
-                       console.log("Error occured Resizing Image Width"+err);
-                });
+              //  .catch(function(err) {
+              //         console.log("Error occured Resizing Image Width"+err);
+            //    });
   }else{
   //  return  inputFile as file did not need to be modified;
       callback(inputFile);
