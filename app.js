@@ -191,20 +191,22 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
   }
 }
 
-function gcsMove(BUCKET_NAME,FOLDER,FILEURL, callback){
+function gcsMove(BUCKET_NAME,FOLDER,outputFile, callback){
   console.log('move image to cloud storage');
   var options = options || {};
   const  bucket = storage.bucket(BUCKET_NAME);
-  const fileName = path.basename(FILEURL);
+  const fileName = path.basename(outputFile);
   const file = bucket.file(fileName);
-  bucket.upload(FILEURL, options)
+  bucket.upload(outputFile, options,function(err, file))
   .then(() => file.makePublic())
-  .then(() => fs.unlink(FILEURL))
+  .then(() => fs.unlink(outputFile))
   .catch(function(err) {
          console.log("Error occured in gcsMove: "+err);
    });
    callback('https://storage.googleapis.com/'+BUCKET_NAME+'/'+fileName);
 }
+
+
 function round(value, decimals) {
   return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
 }
