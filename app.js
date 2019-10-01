@@ -180,7 +180,7 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
                .then(function(newFileInfo){
                    // newFileInfo holds the output file properties
                    console.log("Image Resized:"+JSON.stringify(newFileInfo));
-                   fs.unlink(inputFile);
+                //   fs.unlink(inputFile);
                    callback(outputFile);
                 })
               //  .catch(function(err) {
