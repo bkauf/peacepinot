@@ -85,7 +85,6 @@ app.post('/automl',function(req,res){
               newWidth  = dimensions.width;
               newHeight = dimensions.height;
          }
-            console.log("Test dimentions"+newWidth+newHeight);
             imageResize(inputFile,outputReFile,newWidth,newHeight,resize, function(outputFile) {//resize images
 
                         console.log('!Enter Predict!');
@@ -100,7 +99,7 @@ app.post('/automl',function(req,res){
                           payload: payload,
                         };
                        gcsMove(gcsBucket,gcsFolder,outputFile, function(fileURL) {// move image to GCS & delete temp image
-                       console.log('Image Uploaded:'+fileURL);
+                       console.log('Image Uploaded: '+fileURL);
 
                         //automl Prediction
                         client.predict(request)
@@ -183,9 +182,9 @@ function imageResize(inputFile,outputFile,newWidth,newHeight,resize,callback){
                 //   fs.unlink(inputFile);
                    callback(outputFile);
                 })
-              //  .catch(function(err) {
-              //         console.log("Error occured Resizing Image Width"+err);
-            //    });
+                .catch(function(err) {
+                       console.log("Error occured Resizing Image: "+err);
+                });
   }else{
   //  return  inputFile as file did not need to be modified;
       callback(inputFile);
@@ -198,9 +197,12 @@ function gcsMove(BUCKET_NAME,FOLDER,FILEURL, callback){
   const  bucket = storage.bucket(BUCKET_NAME);
   const fileName = path.basename(FILEURL);
   const file = bucket.file(fileName);
-   bucket.upload(FILEURL, options)
-      .then(() => file.makePublic())
-      .then(() => fs.unlink(FILEURL));
+  bucket.upload(FILEURL, options)
+  .then(() => file.makePublic())
+  .then(() => fs.unlink(FILEURL));
+  .catch(function(err) {
+         console.log("Error occured in gcsMove: "+err);
+
    callback('https://storage.googleapis.com/'+BUCKET_NAME+'/'+fileName);
 }
 function round(value, decimals) {
