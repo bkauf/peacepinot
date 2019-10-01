@@ -199,10 +199,10 @@ function gcsMove(BUCKET_NAME,FOLDER,FILEURL, callback){
   const file = bucket.file(fileName);
   bucket.upload(FILEURL, options)
   .then(() => file.makePublic())
-  .then(() => fs.unlink(FILEURL));
+  .then(() => fs.unlink(FILEURL))
   .catch(function(err) {
          console.log("Error occured in gcsMove: "+err);
-
+   });
    callback('https://storage.googleapis.com/'+BUCKET_NAME+'/'+fileName);
 }
 function round(value, decimals) {
