@@ -14,6 +14,7 @@ const gcsBucket   = 'bkauf-peacepinot';//name of GCS Bucket make sure access is 
 const gcsFolder   = 'uploads';//not finished
 const project     = 'bkauf-sandbox';//GCP Project Where Model is
 const saToken     = '/var/run/secret/cloud.google.com/service-account.json';
+
 const region      = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
@@ -61,15 +62,14 @@ app.post('/automl',function(req,res){
          console.log('File uploaded!');
          var inputFile    = uploadPath ;
          var outputFile   = '';
-         var resize       = "false";
+         var resize       = false;
          var dimensions   = sizeOf(inputFile);
          var newWidth     = 0;
-         var resized      = true;
          var newHeight    = 0;
          var aspectRatio  = Number(dimensions.width)/Number(dimensions.height);
          if (Number(dimensions.width)>500 || Number(dimensions.height>500) ){
-                 resize = "yes";
-                 console.log("Resize Image"+dimensions.width+" "+dimensions.height);
+                 resize = true;
+                 console.log("Resize Image: "+dimensions.width+" "+dimensions.height);
              if (Number(dimensions.height)>Number(dimensions.width)){//calculate larger side
                newWidth   = Math.round((499 * aspectRatio));
                newHeight  = 499;
@@ -80,7 +80,7 @@ app.post('/automl',function(req,res){
              }
 
               outputFile  = resizePath;
-              resized     = false;
+
          }else{
               newWidth   = dimensions.width;
               newHeight  = dimensions.height;
@@ -108,7 +108,7 @@ app.post('/automl',function(req,res){
                     bucket.upload(outputFile, options, function(err, fileData) {
                       file.makePublic();
                       fs.unlinkSync(outputFile);
-                      if(resized !=true){
+                      if(resize !=true){
                         fs.unlinkSync(uploadPath);
                       }
                       var  fileURL = 'https://storage.googleapis.com/'+gcsBucket+'/'+fileName;

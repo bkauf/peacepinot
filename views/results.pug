@@ -22,7 +22,7 @@ html
 
           #body-content
             #container
-              img(src=imagesrc,  class='img')
+              img(src=imagesrc, class='img')
               canvas(id="myCanvas" width=imgWidth height=imgHeight style="border:1px solid #000000;")
               script(type="text/javascript").
                   var c = document.getElementById("myCanvas");
@@ -30,14 +30,14 @@ html
                   // Green rectangle
                   var xycords = !{xycords}
 
-                  $("#container").width(!{imageWidth});
-                  $("#container").height(!{imageHeight});
+                  $("#container").width(!{imageWidth}+2);
+                  $("#container").height(!{imageHeight}+2);
 
                   var arrayLength = xycords.length;
                   for (var i = 0; i < arrayLength; i++) {
                     console.log("test");
                     var x1= xycords[i][0].x*!{imageWidth};
-                    var y1= xycords[i][0].y*!{imageHeight} ;
+                    var y1= xycords[i][0].y*!{imageHeight};
                     var x2= (xycords[i][1].x*!{imageWidth})-(xycords[i][0].x*!{imageWidth});
                     var y2= (xycords[i][1].y*!{imageHeight})-(xycords[i][0].y*!{imageHeight});
                     ctx.lineWidth = "4";
