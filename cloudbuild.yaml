@@ -7,13 +7,6 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID"]
 
-#- id: 'Push to Cloud Run'
-#  name: 'gcr.io/cloud-builders/gcloud'
-#  args: ["run", "deploy", "peacepinot", "--image gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID"]
-
-
-# This step deploys the new version of our container image
-# in the hello-cloudbuild Kubernetes Engine cluster.
 - id: 'Deploy to K8s'
   name: 'gcr.io/cloud-builders/kubectl'
   args:
@@ -24,13 +17,3 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLOUDSDK_COMPUTE_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLOUDSDK_CONTAINER_CLUSTER'
-
-
-#- id: 'Deploy and get Manifest'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  entrypoint: 'bash'
-#  args:
-#  - '-c' # pass what follows as a command to bash
-#  - |
-#    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-#    kubectl set image deployment/frontend-staging webserver=gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID
