@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:13.8.0-alpine3.11
 RUN apk update
 
 # Create app directory
@@ -13,7 +13,7 @@ RUN npm install -g nodemon
 # Install app dependencies
 COPY package.json /usr/src/app
 
-RUN npm install
+#RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
