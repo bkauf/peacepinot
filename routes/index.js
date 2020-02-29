@@ -6,7 +6,7 @@ var fs       = require('fs');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   fs.readFile('buildDetails', 'utf8', function(err, contents) {
-
+  var buildDts = JSON.parse(contents);
 
   res.render('index', { title: ':Peace Pinot:', container: hostname, buildID: buildDts.buildID, commitID: buildDts.commitID  });
   });
