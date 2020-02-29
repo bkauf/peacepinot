@@ -1,5 +1,5 @@
-FROM node:10-alpine
-RUN apk update
+FROM node
+#RUN apk update
 
 # Create app directory
 RUN mkdir -p /usr/src/app
