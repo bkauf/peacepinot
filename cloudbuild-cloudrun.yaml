@@ -6,7 +6,6 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     echo '{ "commitID":"$COMMIT_SHA", "buildID":"$BUILD_ID"}' > buildDetails
-    npm install
 
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
