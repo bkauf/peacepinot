@@ -18,7 +18,7 @@ RUN npm install
 COPY . /usr/src/app
 
 #Install new dependencies
-RUN npm update
+#RUN npm update
 
 #open ports
 EXPOSE 8080

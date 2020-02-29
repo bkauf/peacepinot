@@ -20,16 +20,16 @@ const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
 
 // Comment out for 3/2 event
-//const client = new automl.PredictionServiceClient({
-//  projectId: project,
-//  keyFilename: saToken,
-//});
+const client = new automl.PredictionServiceClient({
+  projectId: project//,
+//  keyFilename: saToken, //taken out for cloud run specific access
+});
 
-//const storage = new Storage({
-//  projectId: project,
-//  keyFilename: saToken
-//});
-//end 
+const storage = new Storage({
+  projectId: project//,
+//  keyFilename: saToken ////taken out for cloud run specific access 
+});
+//end
 var path         = require('path');
 var favicon      = require('serve-favicon');
 var bodyParser   = require('body-parser');
