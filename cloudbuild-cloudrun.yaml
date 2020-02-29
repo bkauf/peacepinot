@@ -1,11 +1,11 @@
 steps:
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID', '.']
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID', '.']
 
 - id: 'Push Container to Staging registry'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID']
+  args: ['push', 'gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID']
 
 - id: 'Deploy to Cloud Run'
   name: 'gcr.io/cloud-builders/gcloud'
@@ -16,7 +16,7 @@ steps:
     - '--platform=managed'
     - '--region=us-central1'
     - '--image'
-    - 'gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID'
+    - 'gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID'
 #- id: 'Deploy to Cloud Run'
 #  name: 'gcr.io/cloud-builders/gcloud'
 #  args:
