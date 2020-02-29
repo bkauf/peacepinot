@@ -1,4 +1,13 @@
 steps:
+- id: 'rebuild-node-files'
+  name: 'gcr.io/cloud-builders/npm'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    echo '{ "commitID":"$COMMIT_SHA", "buildID":"$BUILD_ID"}' > buildDetails
+    npm install
+
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID', '.']
