@@ -1,4 +1,4 @@
-FROM node
+FROM node:13.8.0-stretch
 #RUN apk update
 
 # Create app directory
@@ -18,7 +18,7 @@ RUN npm install
 COPY . /usr/src/app
 
 #Install new dependencies
-RUN npm update
+#RUN npm update
 
 #open ports
 EXPOSE 8080
