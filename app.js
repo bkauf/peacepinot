@@ -25,11 +25,11 @@ try {
     if (fs.existsSync('.'+saToken)) {// kubernetes
       const client = new automl.PredictionServiceClient({
         projectId: project,
-        keyFilename: saToken
+        keyFilename: saToken,
       });
       const storage = new Storage({
         projectId: project,
-        keyFilename: saToken
+        keyFilename: saToken,
       });
    }else{// no service account, likely cloud build
      const client = new automl.PredictionServiceClient({
