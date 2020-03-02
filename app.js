@@ -13,21 +13,38 @@ const port        = 8080;
 const gcsBucket   = 'bkauf-peacepinot';//name of GCS Bucket make sure access is public
 const gcsFolder   = 'uploads';//not finished
 const project     = 'bkauf-sandbox';//GCP Project Where Model is
-const saToken     = '/var/run/secret/cloud.google.com/service-account.json' || '';
+const saToken     = '/var/run/secret/cloud.google.com/service-account.json';
 
 const region      = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
 // Comment out for 3/2 event
 
-       const client = new automl.PredictionServiceClient({
-         projectId: project//,
-       //  keyFilename: saToken, //taken out for cloud run specific access
-       });
-       const storage = new Storage({
-         projectId: project//,
-       //  keyFilename: saToken ////taken out for cloud run specific access
-       });
+
+try {
+    if (fs.existsSync('.'+saToken)) {// kubernetes
+      const client = new automl.PredictionServiceClient({
+        projectId: project,
+        keyFilename: saToken
+      });
+      const storage = new Storage({
+        projectId: project,
+        keyFilename: saToken
+      });
+   }else{// no service account, likely cloud build
+     const client = new automl.PredictionServiceClient({
+       projectId: project//,
+     //  keyFilename: saToken, //taken out for cloud run specific access
+     });
+     const storage = new Storage({
+       projectId: project//,
+     //  keyFilename: saToken ////taken out for cloud run specific access
+     });
+   }
+} catch(err) {
+  console.error(err)
+}
+
 
 //end
 var path         = require('path');
