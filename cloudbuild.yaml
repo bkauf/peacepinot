@@ -1,5 +1,4 @@
 steps:
-
 - id: 'rebuild-node-files'
   name: 'gcr.io/cloud-builders/npm'
   entrypoint: 'bash'
@@ -12,7 +11,7 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID', '.']
 
-- id: 'Push Container to Staging registry'
+- id: 'Push to GCR Container Registry'
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/peacepinot:$BUILD_ID"]
 
