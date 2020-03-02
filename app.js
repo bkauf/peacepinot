@@ -18,13 +18,7 @@ const saToken     = '/var/run/secret/cloud.google.com/service-account.json';
 const region      = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
-// Comment out for 3/2 event
 
-
-
-
-
-//end
 var path         = require('path');
 var favicon      = require('serve-favicon');
 var bodyParser   = require('body-parser');
@@ -54,12 +48,10 @@ app.post('/automl',function(req,res){
         });
      }else{// no service account, likely cloud build
        var client = new automl.PredictionServiceClient({
-         projectId: project//,
-       //  keyFilename: saToken, //taken out for cloud run specific access
+         projectId: project
        });
        var storage = new Storage({
-         projectId: project//,
-       //  keyFilename: saToken ////taken out for cloud run specific access
+         projectId: project
        });
      }
   } catch(err) {
