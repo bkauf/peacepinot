@@ -19,7 +19,7 @@ const region      = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
 // Comment out for 3/2 event
- if (fs.existsSync(saToken)) {
+ if (fs.existsSync('./'+saToken)) {
        const client = new automl.PredictionServiceClient({
          projectId: project,
          keyFilename: saToken,
