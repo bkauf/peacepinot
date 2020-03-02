@@ -44,20 +44,20 @@ app.post('/automl',function(req,res){
 
   try {
       if (fs.existsSync('.'+saToken)) {// kubernetes
-        const client = new automl.PredictionServiceClient({
+        var client = new automl.PredictionServiceClient({
           projectId: project,
           keyFilename: saToken,
         });
-        const storage = new Storage({
+        var storage = new Storage({
           projectId: project,
           keyFilename: saToken,
         });
      }else{// no service account, likely cloud build
-       const client = new automl.PredictionServiceClient({
+       var client = new automl.PredictionServiceClient({
          projectId: project//,
        //  keyFilename: saToken, //taken out for cloud run specific access
        });
-       const storage = new Storage({
+       var storage = new Storage({
          projectId: project//,
        //  keyFilename: saToken ////taken out for cloud run specific access
        });
