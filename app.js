@@ -19,16 +19,7 @@ const region      = 'us-central1';//region of autoML model
 const automlModel = 'IOD822197203064848384';//object
 // end account specifc variables
 // Comment out for 3/2 event
- if (fs.existsSync('./'+saToken)) {
-       const client = new automl.PredictionServiceClient({
-         projectId: project,
-         keyFilename: saToken,
-       });
-       const storage = new Storage({
-         projectId: project,
-         keyFilename: saToken });
 
- }else{
        const client = new automl.PredictionServiceClient({
          projectId: project//,
        //  keyFilename: saToken, //taken out for cloud run specific access
@@ -37,7 +28,6 @@ const automlModel = 'IOD822197203064848384';//object
          projectId: project//,
        //  keyFilename: saToken ////taken out for cloud run specific access
        });
- }
 
 //end
 var path         = require('path');
