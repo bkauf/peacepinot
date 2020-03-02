@@ -21,29 +21,7 @@ const automlModel = 'IOD822197203064848384';//object
 // Comment out for 3/2 event
 
 
-try {
-    if (fs.existsSync('.'+saToken)) {// kubernetes
-      const client = new automl.PredictionServiceClient({
-        projectId: project,
-        keyFilename: saToken,
-      });
-      const storage = new Storage({
-        projectId: project,
-        keyFilename: saToken,
-      });
-   }else{// no service account, likely cloud build
-     const client = new automl.PredictionServiceClient({
-       projectId: project//,
-     //  keyFilename: saToken, //taken out for cloud run specific access
-     });
-     const storage = new Storage({
-       projectId: project//,
-     //  keyFilename: saToken ////taken out for cloud run specific access
-     });
-   }
-} catch(err) {
-  console.error(err)
-}
+
 
 
 //end
@@ -63,6 +41,30 @@ app.use(fileUpload());
 app.use('/loaderio-7fb93f7a58f56efbca84be04d559c29d', loaderPage);
 
 app.post('/automl',function(req,res){
+
+  try {
+      if (fs.existsSync('.'+saToken)) {// kubernetes
+        const client = new automl.PredictionServiceClient({
+          projectId: project,
+          keyFilename: saToken,
+        });
+        const storage = new Storage({
+          projectId: project,
+          keyFilename: saToken,
+        });
+     }else{// no service account, likely cloud build
+       const client = new automl.PredictionServiceClient({
+         projectId: project//,
+       //  keyFilename: saToken, //taken out for cloud run specific access
+       });
+       const storage = new Storage({
+         projectId: project//,
+       //  keyFilename: saToken ////taken out for cloud run specific access
+       });
+     }
+  } catch(err) {
+    console.error(err)
+  }
     var timeStamp = Date.now();
     var uploadPath = './public/images/uploads/raw/'+timeStamp+'.jpg';
     var resizePath = './public/images/uploads/resize/'+timeStamp+'.jpg';
