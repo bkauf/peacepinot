@@ -9,14 +9,17 @@ steps:
 
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
+  waitFor: ['rebuild-node-files']
   args: ['build', '--tag=gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID', '.']
 
 - id: 'Push Container to Registry'
   name: 'gcr.io/cloud-builders/docker'
+  waitFor: ['Create Container']
   args: ['push', 'gcr.io/$PROJECT_ID/peacepinot:$BUILD_ID']
 
 - id: 'Deploy to Cloud Run'
   name: 'gcr.io/cloud-builders/gcloud'
+  waitFor: ['Push Container to Registry']
   args:
     - 'run'
     - 'deploy'
