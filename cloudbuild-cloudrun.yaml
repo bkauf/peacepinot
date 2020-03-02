@@ -12,6 +12,7 @@ steps:
   waitFor: ['rebuild-node-files']
   args: ['build', '--tag=gcr.io/$PROJECT_ID/$_CONTAINERNAME:$BUILD_ID', '.']
 
+
 - id: 'Push Container to Registry'
   name: 'gcr.io/cloud-builders/docker'
   waitFor: ['Create Container']
