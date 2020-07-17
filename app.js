@@ -118,9 +118,9 @@ app.post('/automl',function(req,res){
 
                     bucket.upload(outputFile, options, function(err, fileData) {
                       file.makePublic();
-                      fs.unlinkSync(outputFile);
+                     // fs.unlinkSync(outputFile);
                       if(resize !=true){
-                        fs.unlinkSync(uploadPath);
+                    //    fs.unlinkSync(uploadPath);
                       }
                       var  fileURL = 'https://storage.googleapis.com/'+gcsBucket+'/'+fileName;
                        console.log('Image Uploaded: '+fileURL);
