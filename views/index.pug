@@ -27,7 +27,7 @@ html
       p Build: #{buildID}
       div#message
       div
-        form(onsubmit="return signInWithEmailAndPassword(document.getElementById('email'), document.getElementById('password'))" action="#")
+        form(onsubmit="return login()" action="#")
      
           p email:
             input(type="text" id="email" placeholder="")
@@ -45,7 +45,7 @@ html
             |</script>
 
             |<script>
-
+           
 
             |firebase.auth().onAuthStateChanged(function(user) {
             |if (user) {
@@ -54,8 +54,12 @@ html
             |document.getElementById("message").innerHTML = "No user signed in.";
             |}
             |});
-
+            | function login(){
+            | var email = document.getElementById("email").value;
+            | var password = document.getElementById("password").value;
+            
             |firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             |document.getElementById("message").innerHTML = error.message;
             |})
+            |}
             |</script>
