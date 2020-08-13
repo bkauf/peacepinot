@@ -25,11 +25,37 @@ html
       a(href="https://github.com/bkauf/peacepinot") Source on Github
       p Commit: #{commitID}
       p Build: #{buildID}
-      |<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase.js"></script>
-      |<script>
-      |var config = {
-      | apiKey: "AIzaSyAXJpMI2gwV0y2JYqTux4Pw8IfyNwGU7vs",
-      | authDomain: "bkauf-sandbox.firebaseapp.com",
-      | };
-      |firebase.initializeApp(config);
-      |</script>
+      div#message
+      div
+        form(onsubmit="return signInWithEmailAndPassword(document.getElementById("email"), document.getElementById("password"))" action="#")
+     
+          p email:
+            input(type="text" id="email" placeholder="")
+          p password:
+            input(type="text" password="password" placeholder="")
+            input(type="submit" value="Submit")
+          p
+            |<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase.js"></script>
+            |<script>
+            |var config = {
+            | apiKey: "AIzaSyAXJpMI2gwV0y2JYqTux4Pw8IfyNwGU7vs",
+            | authDomain: "bkauf-sandbox.firebaseapp.com",
+            | };
+            |firebase.initializeApp(config);
+            |</script>
+
+            |<script>
+
+
+            |firebase.auth().onAuthStateChanged(function(user) {
+            |if (user) {
+            |document.getElementById("message").innerHTML = "Welcome, " + user.email;
+            |} else {
+            |document.getElementById("message").innerHTML = "No user signed in.";
+            |}
+            |});
+
+            |firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            |document.getElementById("message").innerHTML = error.message;
+            |})
+            |</script>
