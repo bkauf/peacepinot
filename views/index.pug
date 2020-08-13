@@ -34,48 +34,49 @@ html
           p password:
             input(type="text" id="password" placeholder="")
             input(type="submit" value="Submit")
-          p
-            |<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase.js"></script>
-            |<script>
-            |var config = {
-            | apiKey: "AIzaSyAXJpMI2gwV0y2JYqTux4Pw8IfyNwGU7vs",
-            | authDomain: "bkauf-sandbox.firebaseapp.com",
-            | };
-            |firebase.initializeApp(config);
-            |</script>
+      div
+        |<script src="https://www.gstatic.com/firebasejs/7.17.2/firebase.js"></script>
+        |<script>
+        |var config = {
+        | apiKey: "AIzaSyAXJpMI2gwV0y2JYqTux4Pw8IfyNwGU7vs",
+        | authDomain: "bkauf-sandbox.firebaseapp.com",
+        | };
+        |firebase.initializeApp(config);
+        |</script>
 
-            |<script>
-           
+        |<script>
 
-            |firebase.auth().onAuthStateChanged(function(user) {
-            |if (user) {
-            |document.getElementById("message").innerHTML = "Welcome, " + user.email;
-            |} else {
-            |document.getElementById("message").innerHTML = "No user signed in.";
-            |}
-            |});
-            | function login(){
-            | var email = document.getElementById("email").value;
-            | var password = document.getElementById("password").value;
-            
-            |firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            |document.getElementById("message").innerHTML = error.message;
-            |})
-            |}
-            |</script>
-            |firebase.auth().signInWithPopup(provider).then(function(result) {
-            |  // This gives you a Google Access Token. You can use it to access the Google API.
-            | var token = result.credential.accessToken;
-            | // The signed-in user info.
-            | var user = result.user;
-            | alert(result.user)
-            |}).catch(function(error) {
-            | // Handle Errors here.
-            | var errorCode = error.code;
-            | var errorMessage = error.message;
-            | // The email of the user's account used.
-            | var email = error.email;
-            | // The firebase.auth.AuthCredential type that was used.
-            | var credential = error.credential;
-            | // ...
-            |});
+
+        |firebase.auth().onAuthStateChanged(function(user) {
+        |if (user) {
+        |document.getElementById("message").innerHTML = "Welcome, " + user.email;
+        |} else {
+        |document.getElementById("message").innerHTML = "No user signed in.";
+        |}
+        |});
+        | function login(){
+        | var email = document.getElementById("email").value;
+        | var password = document.getElementById("password").value;
+
+        |firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        |document.getElementById("message").innerHTML = error.message;
+        |})
+        |}
+
+        | firebase.auth().signInWithPopup(provider).then(function(result) {// sign in with google
+        |  // This gives you a Google Access Token. You can use it to access the Google API.
+        | var token = result.credential.accessToken;
+        | // The signed-in user info.
+        | var user = result.user;
+        | alert(result.user)
+        |}).catch(function(error) {
+        | // Handle Errors here.
+        | var errorCode = error.code;
+        | var errorMessage = error.message;
+        | // The email of the user's account used.
+        | var email = error.email;
+        | // The firebase.auth.AuthCredential type that was used.
+        | var credential = error.credential;
+        | // ...
+        |});
+        |</script>
