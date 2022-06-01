@@ -20,7 +20,7 @@
     "pug": "^2.0.3",
     "request": "^2.88.0",
     "serve-favicon": "^2.5.0",
-    "sharp": "0.23.1"
+    "sharp": "0.30.5"
   },
   "author": "Brian Kaufman",
   "bugs": {
